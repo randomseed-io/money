@@ -1,0 +1,15 @@
+#Code,DecPlaces,Name
+BTC,8,Bitcoin
+BCH,8,Bitcoin Cash
+BNB,8,Binance
+BSV,8,Bitcoin SV
+DASH,8,Dash
+EOS,4,EOS
+ETH,18,Ether
+LTC,8,Litecoin
+VTC,8,Vertcoin
+XLM,8,Stellar Lumen
+XMR,12,Monero
+XRP,6,Ripple
+XTZ,6,Tez
+ZEC,8,Zcash

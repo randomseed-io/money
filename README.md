@@ -1,8 +1,10 @@
-# ClojureWerkz Money, a Clojure Library to Work With Money
+# ClojureWerkz Money / r:s branch
+## A Clojure Library to Work With Money
 
 ClojureWerkz Money is a Clojure library that deals with monetary amounts.
 It is built on top of [Joda Money](http://joda-money.sourceforge.net/).
 
+This is random:seed branch of this library.
 
 ## Project Goals
 
@@ -12,15 +14,9 @@ It is built on top of [Joda Money](http://joda-money.sourceforge.net/).
  * Don't introduce any significant amount of performance overhead
 
 
-## Project Maturity
-
-Money is past `1.0` and is considered to be a complete, stable library.
-
-
-
 ## Maven Artifacts
 
-Money artifacts are [released to Clojars](https://clojars.org/clojurewerkz/money). If you are using Maven, add the following repository
+Money artifacts are [released to Clojars](https://clojars.org/io.randomseed/money). If you are using Maven, add the following repository
 definition to your `pom.xml`:
 
 ``` xml
@@ -34,15 +30,15 @@ definition to your `pom.xml`:
 
 With Leiningen:
 
-    [clojurewerkz/money "1.10.0"]
+    [io.randomseed/money "1.0.1-0"]
 
 
 With Maven:
 
     <dependency>
-      <groupId>clojurewerkz</groupId>
+      <groupId>io.randomseed</groupId>
       <artifactId>money</artifactId>
-      <version>1.10.0</version>
+      <version>1.0.1-0</version>
     </dependency>
 
 
@@ -50,14 +46,14 @@ With Maven:
 
 ### Monetary Amounts
 
-Monetary amounts are instantiated using `clojurewerkz.money.amounts` functions. They operate on
+Monetary amounts are instantiated using `io.randomseed.money.amounts` functions. They operate on
 floating point amounts (doubles) or long values in major units (e.g. dollars) or minor units (e.g. cents).
 
-Note that some currencies do not have minor units (most notably `JPY`). For those, use `clojurewerkz.money.amounts/of-major`.
+Note that some currencies do not have minor units (most notably `JPY`). For those, use `io.randomseed.money.amounts/of-major`.
 
 ``` clojure
-(require '[clojurewerkz.money.amounts :as ma])
-(require '[clojurewerkz.money.currencies :as mc])
+(require '[io.randomseed.money.amounts :as ma])
+(require '[io.randomseed.money.currencies :as mc])
 
 ;; USD 10.50
 (ma/amount-of mc/USD 10.5)
@@ -75,19 +71,19 @@ Note that not all currencies have minor units (most notably JPY does not).
 It is possible to parse a string in the standard format `[currency unit] [amount]`, e.g. `JPY 1000`:
 
 ``` clojure
-(require '[clojurewerkz.money.amounts :as ma])
+(require '[io.randomseed.money.amounts :as ma])
 
 (ma/parse "JPY 1000")
 ;= org.joda.money.Money instance for JPY 1000
 ```
 
-Monetary amounts can be added, substracted and so on using `clojurewerkz.money.amounts/plus`,
-`clojurewerkz.money.amounts/minus`, `clojurewerkz.money.amounts/multiply`, and
-`clojurewerkz.money.amounts/divide` functions:
+Monetary amounts can be added, substracted and so on using `io.randomseed.money.amounts/plus`,
+`io.randomseed.money.amounts/minus`, `io.randomseed.money.amounts/multiply`, and
+`io.randomseed.money.amounts/divide` functions:
 
 ``` clojure
-(require '[clojurewerkz.money.amounts    :as ma])
-(require '[clojurewerkz.money.currencies :as mc])
+(require '[io.randomseed.money.amounts    :as ma])
+(require '[io.randomseed.money.currencies :as mc])
 
 (ma/plus (ma/amount-of mc/USD 10) (ma/amount-of mc/USD 100))
 ;= USD 110
@@ -103,11 +99,11 @@ Monetary amounts can be added, substracted and so on using `clojurewerkz.money.a
 ;= USD 10
 ```
 
-It is possible to add up all monies in a collection or sequence using `clojurewerkz.money.amounts/total`:
+It is possible to add up all monies in a collection or sequence using `io.randomseed.money.amounts/total`:
 
 ``` clojure
-(require '[clojurewerkz.money.amounts    :as ma])
-(require '[clojurewerkz.money.currencies :as mc])
+(require '[io.randomseed.money.amounts    :as ma])
+(require '[io.randomseed.money.currencies :as mc])
 
 (ma/total [(ma/amount-of mc/USD 10) (ma/amount-of mc/USD 100)])
 ;= USD 110
@@ -116,8 +112,8 @@ It is possible to add up all monies in a collection or sequence using `clojurewe
 It is possible to compare monetary amounts using >, >=, < and <=.
 
 ```clojure
-(require '[clojurewerkz.money.amounts    :as ma])
-(require '[clojurewerkz.money.currencies :as mc])
+(require '[io.randomseed.money.amounts    :as ma])
+(require '[io.randomseed.money.currencies :as mc])
 
 (ma/< (ma/amount-of mc/USD 100) (ma/amount-of mc/USD 100))
 ;= false
@@ -134,11 +130,11 @@ It is possible to compare monetary amounts using >, >=, < and <=.
 
 ### Rounding
 
-`clojurewerkz.money.amounts/round` is a function that performs rounding of
+`io.randomseed.money.amounts/round` is a function that performs rounding of
 monetary values using one of the rounding modes:
 
 ``` clojure
-(require '[clojurewerkz.money.amounts :as ams])
+(require '[io.randomseed.money.amounts :as ams])
 
 (ams/round (ams/amount-of cu/USD 40.01) -1 :floor)
 ;= USD 40
@@ -163,10 +159,10 @@ monetary values using one of the rounding modes:
 ### Currencies
 
 Currency units use their ISO-4217 codes and represented by `org.joda.money.CurrencyUnit` instances.
-Usually the easiest way to use currency units is via `clojurewerkz.money.currencies` aliases:
+Usually the easiest way to use currency units is via `io.randomseed.money.currencies` aliases:
 
 ``` clojure
-(require '[clojurewerkz.money.currencies :as mc])
+(require '[io.randomseed.money.currencies :as mc])
 
 mc/USD ;= USD currency unit
 mc/CAD ;= CAD currency unit
@@ -174,27 +170,27 @@ mc/GBP ;= GBP currency unit
 mc/RUB ;= RUB currency unit
 ```
 
-`clojurewerkz.money.currencies/for-code` and `clojurewerkz.money.currencies/of-country` can be used
+`io.randomseed.money.currencies/for-code` and `io.randomseed.money.currencies/of-country` can be used
 to get currency units by their ISO-4217 code strings and country abbreviations:
 
 ``` clojure
-(require '[clojurewerkz.money.currencies :as mc])
+(require '[io.randomseed.money.currencies :as mc])
 
 (mc/for-code "CHF")   ;= CHF currency unit
 (mc/for-country "CH") ;= CHF currency unit
 ```
 
-`clojurewerkz.money.currencies/pseudo-currency?` is a predicate function that takes a currency unit
+`io.randomseed.money.currencies/pseudo-currency?` is a predicate function that takes a currency unit
 and returns true if it is a pseudo-currency (e.g. [Bitcoin](http://bitcoin.org) or [IMF Special Drawing Rights](http://www.imf.org/external/np/exr/facts/sdr.htm)).
 
 
 ### Currency Conversion
 
-`clojurewerkz.money.amounts/convert-to` converts a monetary value in one currency
+`io.randomseed.money.amounts/convert-to` converts a monetary value in one currency
 to another using provided exchange rate and rounding mode:
 
 ``` clojure
-(require '[clojurewerkz.money.amounts :as ams])
+(require '[io.randomseed.money.amounts :as ams])
 
 (ams/convert-to (ams/amount-of cu/GBP 65.65) cu/USD 1.523 :down)
 ;= USD 99.98
@@ -203,13 +199,13 @@ to another using provided exchange rate and rounding mode:
 
 ### Formatting
 
-Money supports formatting of monetary amounts with the `clojurewerkz.money.format/format` function
+Money supports formatting of monetary amounts with the `io.randomseed.money.format/format` function
 which takes an amount and (optionally) a locale and a formatter:
 
 ``` clojure
-(require '[clojurewerkz.money.currencies :as cu])
-(require '[clojurewerkz.money.amounts :refer [amount-of]])
-(require '[clojurewerkz.money.format :refer :all])
+(require '[io.randomseed.money.currencies :as cu])
+(require '[io.randomseed.money.amounts :refer [amount-of]])
+(require '[io.randomseed.money.format :refer :all])
 
 (import java.util.Locale)
 
@@ -227,13 +223,13 @@ settings.
 
 ### Cheshire Integration
 
-`clojurewerkz.money.json`, when loaded, registers serializers for
+`io.randomseed.money.json`, when loaded, registers serializers for
 `org.joda.money.Money` and `org.joda.money.CurrencyUnit` with
 Cheshire. Serialization conventions used are straightforward and
 produce human readable values:
 
- * `(clojurewerkz.money.currencies/USD)` => `"USD"`
- * `(clojurewerkz.money.amounts/amount-of (clojurewerkz.money.currencies/USD) 20.5)` => `"USD20.50"` (will use system locale by default)
+ * `(io.randomseed.money.currencies/USD)` => `"USD"`
+ * `(io.randomseed.money.amounts/amount-of (io.randomseed.money.currencies/USD) 20.5)` => `"USD20.50"` (will use system locale by default)
 
 To use it, simply require the namespace and then use Cheshire
 generation functions as usual.
@@ -244,30 +240,30 @@ is not supported.
 
 ### Monger Integration
 
-`clojurewerkz.money.monger`, when loaded, registers BSON serializers
+`io.randomseed.money.monger`, when loaded, registers BSON serializers
 for `org.joda.money.Money` and
 `org.joda.money.CurrencyUnit`. Serialization conventions used are
 straightforward and produce human readable values:
 
- * `(clojurewerkz.money.currencies/USD)` => `"USD"`
- * `(clojurewerkz.money.amounts/amount-of (clojurewerkz.money.currencies/USD) 20.5)` => `{"currency-unit" "USD" "amount-in-minor-units" 2050}`
+ * `(io.randomseed.money.currencies/USD)` => `"USD"`
+ * `(io.randomseed.money.amounts/amount-of (io.randomseed.money.currencies/USD) 20.5)` => `{"currency-unit" "USD" "amount-in-minor-units" 2050}`
 
 Note that serialization is one-way: loaded documents are returned as
 maps because there is no way to tell them from regular BSON
-documents. `clojurewerkz.money.monger/from-stored-map` can be used to
+documents. `io.randomseed.money.monger/from-stored-map` can be used to
 produce `Money` instances from maps following the serialization
 convention described above.
 
 
 ### Hiccup Integration
 
-`clojurewerkz.money.hiccup`, when loaded, extends [Hiccup](https://github.com/weavejester/hiccup) HTML rendering protocol to render
+`io.randomseed.money.hiccup`, when loaded, extends [Hiccup](https://github.com/weavejester/hiccup) HTML rendering protocol to render
 monetary amounts and currency units.
 Rendering conventions used are straightforward and
 produce human readable values:
 
- * `(clojurewerkz.money.currencies/USD)` => `"USD"`
- * `(clojurewerkz.money.amounts/amount-of (clojurewerkz.money.currencies/USD) 20.5)` => `"USD20.50"` (will use system locale by default)
+ * `(io.randomseed.money.currencies/USD)` => `"USD"`
+ * `(io.randomseed.money.amounts/amount-of (io.randomseed.money.currencies/USD) 20.5)` => `"USD20.50"` (will use system locale by default)
 
 To use it, simply require the namespace and then use Hiccup
 as usual.
@@ -275,38 +271,29 @@ as usual.
 
 ## Community
 
-[ClojureWerkz Money has a mailing list](https://groups.google.com/group/clojure-money). Feel free to join it and ask any questions you may have.
-
-To subscribe for announcements of releases, important changes and so on, please follow [@ClojureWerkz](https://twitter.com/#!/clojurewerkz) on Twitter.
-
+To get announcements of releases, important changes and so on, please follow [@therandomseed](https://twitter.com/#!/therandomseed) on Twitter.
 
 
 ## Supported Clojure Versions
 
-ClojureWerkz Money is built from the ground up for Clojure 1.4 and up.
+ClojureWerkz Money R:S branch is built from the ground up for Clojure 1.10 and up.
 The most recent release is always recommended.
 
 
 ## Continuous Integration
 
-[![Continuous Integration status](https://secure.travis-ci.org/clojurewerkz/money.png)](http://travis-ci.org/clojurewerkz/money)
+[![Continuous Integration status](https://secure.travis-ci.org/clojurewerkz/money.png)](https://circleci.com/gh/randomseed-io/money)
 
-CI is hosted by [travis-ci.org](http://travis-ci.org)
+CI is hosted by [CircleCI](https://cicrleci.com)
 
 
 ## Development
 
-Money uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md). Make sure you have it installed and then run tests
-against all supported Clojure versions using
-
-    lein all test
-
-Then create a branch and make your changes on it. Once you are done with your changes and all tests pass, submit
-a pull request on GitHub.
-
+Money uses [deps.edn](https://clojure.org/guides/deps_and_cli).
 
 ## License
 
+Copyright © 2021 Paweł Wilk and the random:seed team.
 Copyright © 2012-2016 Michael S. Klishin, Alex Petrov, and the ClojureWerkz team.
 
 Double licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure) or

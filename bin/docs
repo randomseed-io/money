@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "[money] Building docs, please wait..."
+
+clojure -A:docs
