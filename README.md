@@ -276,7 +276,7 @@ To get announcements of releases, important changes and so on, please follow [@t
 
 ## Supported Clojure Versions
 
-ClojureWerkz Money R:S branch is built from the ground up for Clojure 1.10 and up.
+ClojureWerkz Money / R:S branch is built from the ground up for Clojure 1.10 and up.
 The most recent release is always recommended.
 
 
