@@ -282,10 +282,9 @@ The most recent release is always recommended.
 
 ## Continuous Integration
 
-[![Continuous Integration status](https://secure.travis-ci.org/clojurewerkz/money.png)](https://circleci.com/gh/randomseed-io/money)
+[![Continuous Integration status](https://circleci.com/gh/randomseed-io/money.svg?style=svg)](https://circleci.com/gh/randomseed-io/money)
 
 CI is hosted by [CircleCI](https://cicrleci.com)
-
 
 ## Development
 
@@ -293,7 +292,7 @@ Money uses [deps.edn](https://clojure.org/guides/deps_and_cli).
 
 ## License
 
-Copyright © 2021 Paweł Wilk and the random:seed team.
+Copyright © 2021 Paweł Wilk and the random:seed team.  
 Copyright © 2012-2016 Michael S. Klishin, Alex Petrov, and the ClojureWerkz team.
 
 Double licensed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html) (the same as Clojure) or
