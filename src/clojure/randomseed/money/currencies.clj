@@ -39,8 +39,41 @@
 
    Includes var aliases for org.joda.money.CurrencyUnit constants, for example,
    randomseed.money.currencies/USD or randomseed.money.currencies/GBP."
-  (:import org.joda.money.CurrencyUnit))
 
+  (:require [randomseed.money.util :as util])
+  (:import org.joda.money.CurrencyUnit
+           org.joda.money.DefaultCurrencyUnitDataProvider))
+
+;;
+;; Cryptocurrencies
+;;
+
+(defrecord CryptoInfo [^String code ^String name ^int decimal-places])
+
+(defn- ^CurrencyUnit register-crypto!
+  "Registers cryptocurrency. Returns CurrencyUnit object. Overwrites previously defined
+  currency if it exists!"
+  [^CryptoInfo ci]
+  (CurrencyUnit/registerCurrency (.code ci) -1 (.decimal-places ci) true))
+
+(defn- cryptoseq
+  "Reads CSV data describing cryptocurrencies and generates a lazy sequence of
+  CryptoInfo records."
+  []
+  (some->> "META-INF/io/randomseed/money/CryptoData.csv"
+           util/resource-pathname
+           util/read-csv
+           (map (fn [[code decplaces name]]
+                  (when (and (= 3 (count code)) (util/integer-string? decplaces))
+                    (->CryptoInfo code name (Integer/parseInt decplaces)))))
+           (remove nil?)))
+
+(def ^clojure.lang.PersistentHashMap crypto
+  "Map of registered cryptocurrencies (CurrencyUnit objects) and associated CryptoInfo
+  records containing some extra data."
+  (->> (cryptoseq)
+       (map (juxt register-crypto! identity))
+       (into {})))
 
 ;;
 ;; API
@@ -78,8 +111,13 @@
   [^String code]
   (CurrencyUnit/ofCountry code))
 
+(defn crypto-currency?
+  "Returns true if this currency is a cryptocurrency."
+  [^CurrencyUnit cu]
+  (contains? crypto cu))
+
 (defn pseudo-currency?
-  "Returns true if this currency is a pseudo currency"
+  "Returns true if this currency is a pseudo currency."
   [^CurrencyUnit cu]
   (.isPseudoCurrency cu))
 
@@ -281,3 +319,8 @@
 (defalias "YER")
 (defalias "ZAR")
 (defalias "ZWL")
+
+;; Handle crypto.
+
+(doseq [cc (keys crypto)]
+  (intern *ns* (symbol (.getCode cc)) cc))

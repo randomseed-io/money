@@ -31,8 +31,10 @@
   (is (not (cu/pseudo-currency? (cu/of "JPY")))))
 
 (deftest test-additional-currencies-provided-by-randomseed-money
-  (is (cu/pseudo-currency? (cu/of "BTC")))
-  (is (cu/pseudo-currency? (cu/of "ETH"))))
+  (is (not (cu/pseudo-currency? (cu/of "BTC"))))
+  (is (not (cu/pseudo-currency? (cu/of "ETH"))))
+  (is (cu/crypto-currency? (cu/of "BTC")))
+  (is (cu/crypto-currency? (cu/of "ETH"))))
 
 (deftest test-code-of
   (is (= "EUR" (cu/code-of cu/EUR))))
